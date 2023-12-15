@@ -8,15 +8,15 @@ import org.openqa.selenium.WebElement;
 
 public class Actions {
     private static Actions actions = null;
-    WebDriver driver = null;
+    private WebDriver driver = null;
 
-    private Actions() {
-        this.driver = DriverCreator.instantiateDriver(ConfigReader.getBrowser());
+    private Actions(WebDriver driver) {
+        this.driver = driver;
     }
 
-    public static Actions getActionsObject() {
+    public static Actions getActionsObject(WebDriver driver) {
         if (Actions.actions == null) {
-            Actions.actions = new Actions();
+            Actions.actions  = new Actions(driver);
         }
         return Actions.actions;
     }
@@ -33,7 +33,7 @@ public class Actions {
         element.sendKeys(Keys.ENTER);
     }
 
-    public void Maximize(WebDriver driver) {
+    public void Maximize() {
         driver.manage().window().fullscreen();
     }
 
