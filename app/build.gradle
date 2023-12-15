@@ -18,9 +18,8 @@ repositories {
 dependencies {
     // Use TestNG framework, also requires calling test.useTestNG() below
     testImplementation 'org.testng:testng:7.5.1'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:32.1.1-jre'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.4.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
