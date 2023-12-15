@@ -1,4 +1,6 @@
 package ecommerce.webautomation.capstone.shared;
+import ecommerce.webautomation.capstone.utils.ConfigReader;
+import ecommerce.webautomation.capstone.utils.DriverCreator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -6,8 +8,11 @@ import org.openqa.selenium.WebElement;
 
 public class Actions {
     private static Actions actions = null;
+    WebDriver driver = null;
 
-    private Actions() {}
+    private Actions() {
+        this.driver = DriverCreator.instantiateDriver(ConfigReader.getBrowser());
+    }
 
     public static Actions getActionsObject() {
         if (Actions.actions == null) {
@@ -32,11 +37,11 @@ public class Actions {
         driver.manage().window().fullscreen();
     }
 
-    public void navigateTo(WebDriver driver, String url) {
+    public void navigateTo(String url) {
         driver.get(url);
     }
 
-    public void scrollWindow(WebDriver driver, WebElement element) {
+    public void scrollWindow(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView()", element);
     }

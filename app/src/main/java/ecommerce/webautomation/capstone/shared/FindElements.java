@@ -15,16 +15,19 @@ public class FindElements {
         }
         return FindElements.elements;
     }
-    public WebElement findElementByCSS(String cssLocator){
+    public WebElement ByCSS(String cssLocator){
         return driver.findElement(By.cssSelector(cssLocator));
     }
-    public WebElement findElementByID(String elementId){
+    public WebElement ByID(String elementId){
         return driver.findElement(By.id(elementId));
     }
-    public WebElement findElementByClass(String className){
+    public WebElement ByClass(String className){
         return driver.findElement(By.className(className));
     }
-    public WebElement findElementByXPath(String xpath){
+    public WebElement ByXPath(String xpath){
         return driver.findElement(By.xpath(xpath));
+    }
+    public WebElement ByPartialLinkText(String text){
+        return driver.findElement(By.partialLinkText(text));
     }
 }

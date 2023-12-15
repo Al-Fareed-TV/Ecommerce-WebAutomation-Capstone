@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 public class ConfigReader {
     private static final String PROPERTIES_FILE_PATH = "app/src/main/resources/.properties";
-    private Properties properties;
+    private static Properties properties;
     public ConfigReader() {
         loadProperties();
     }
@@ -23,7 +23,7 @@ public class ConfigReader {
         }
     }
 
-    public String getBaseURL() {
+    public static String getBaseURL() {
         return properties.getProperty("baseURL");
     }
 
@@ -34,7 +34,7 @@ public class ConfigReader {
     public String getPassword() {
         return properties.getProperty("password");
     }
-    public String getBrowser(){
+    public static String getBrowser(){
         return  properties.getProperty("browser");
     }
 }
