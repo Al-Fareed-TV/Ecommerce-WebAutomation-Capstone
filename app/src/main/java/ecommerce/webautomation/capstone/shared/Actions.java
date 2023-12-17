@@ -34,7 +34,7 @@ public class Actions {
     }
 
     public void Maximize() {
-        driver.manage().window().fullscreen();
+        driver.manage().window().maximize();
     }
 
     public void navigateTo(String url) {
