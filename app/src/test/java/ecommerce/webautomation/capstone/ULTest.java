@@ -31,6 +31,9 @@ public class ULTest {
         String expectedTitle = productName + " – ul-web-playground";
         waits.waitForTitleToBeChanged("Alfa – ul-web-playground");
         Assert.assertEquals(driver.getTitle(), expectedTitle, "Title does not match");
+
+        String nameOfProduct = pdp.getNameOfProduct();
+        Assert.assertEquals(nameOfProduct,"Alfa");
     }
 
     @AfterClass
