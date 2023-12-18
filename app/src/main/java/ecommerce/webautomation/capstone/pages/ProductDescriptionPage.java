@@ -40,4 +40,16 @@ public class ProductDescriptionPage {
         waits.waitForTitleToBeChanged("Alfa – ul-web-playground");
         return waits.waitUntilElementFoundByXPath("//h1[contains(text(), '" + ConfigReader.getProductName() + "')]").isDisplayed();
     }
+    public void verifyProductAvailabilityAndAddToCart(){
+        WebElement buyNowButton = findElements.ByCSS("#product-form-template--15328405717213__main > div > div > dynamic-checkout > div > shopify-buy-it-now-button > button");
+        if(!findElements.isElementEnabled(buyNowButton)){
+            System.out.println("The Product is sold out..!");
+        }
+        proceedToBuy(buyNowButton);
+    }
+    public void proceedToBuy(WebElement element){
+        System.out.println("Proceeding to buy");
+        actions.clickElement(element);
+    }
+
 }

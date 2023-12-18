@@ -26,9 +26,12 @@ public class ULTest {
         ProductDescriptionPage pdp = ProductDescriptionPage.getPDPInstance(driver);
 
         homePage.goToHomePage();
-        boolean productDetailsPageLoaded = pdp.selectProductByName().isProductDetailsPageLoaded();
+        boolean productDetailsPageLoaded =
+                pdp.selectProductByName()
+                .isProductDetailsPageLoaded();
         Assert.assertTrue(productDetailsPageLoaded);
 
+        pdp.verifyProductAvailabilityAndAddToCart();
     }
 
     @AfterClass
