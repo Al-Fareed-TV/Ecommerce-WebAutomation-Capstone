@@ -24,16 +24,11 @@ public class ULTest {
     public void testPDP() {
         HomePage homePage = HomePage.getInstance(driver);
         ProductDescriptionPage pdp = ProductDescriptionPage.getPDPInstance(driver);
-        String productName = ConfigReader.getProductName();
 
         homePage.goToHomePage();
-        pdp.selectProduct();
-        String expectedTitle = productName + " – ul-web-playground";
-        waits.waitForTitleToBeChanged("Alfa – ul-web-playground");
-        Assert.assertEquals(driver.getTitle(), expectedTitle, "Title does not match");
+        boolean productDetailsPageLoaded = pdp.selectProductByName().isProductDetailsPageLoaded();
+        Assert.assertTrue(productDetailsPageLoaded);
 
-        String nameOfProduct = pdp.getNameOfProduct();
-        Assert.assertEquals(nameOfProduct,"Alfa");
     }
 
     @AfterClass

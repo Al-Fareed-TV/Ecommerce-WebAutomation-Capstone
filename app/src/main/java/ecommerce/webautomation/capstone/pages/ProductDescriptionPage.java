@@ -29,13 +29,15 @@ public class ProductDescriptionPage {
         return ProductDescriptionPage.pdp;
     }
 
-    public void selectProduct() {
-        WebElement productElement = findElements.ByPartialLinkText(ConfigReader.getProductName());
+    public ProductDescriptionPage selectProductByName() {
+//        By productName = By.xpath("//a[contains(text(), '" + ConfigReader.getProductName() + "')]");
+        WebElement productElement = findElements.ByXPath("//a[contains(text(), '" + ConfigReader.getProductName() + "')]");
         actions.scrollWindow(productElement);
         actions.clickElement(productElement);
+        return new ProductDescriptionPage(driver);
     }
-    public String getNameOfProduct(){
-        return findElements.ByCSS("#ProductInfo-template--15328405717213__main > h1").getText();
+    public boolean isProductDetailsPageLoaded(){
+        waits.waitForTitleToBeChanged("Alfa – ul-web-playground");
+        return waits.waitUntilElementFoundByXPath("//h1[contains(text(), '" + ConfigReader.getProductName() + "')]").isDisplayed();
     }
-
 }
