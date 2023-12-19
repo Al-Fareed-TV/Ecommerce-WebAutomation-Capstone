@@ -1,5 +1,6 @@
 package ecommerce.webautomation.capstone.pages;
 
+import ecommerce.webautomation.capstone.Exceptions.ProductUnavailableException;
 import ecommerce.webautomation.capstone.shared.Actions;
 import ecommerce.webautomation.capstone.shared.FindElements;
 import ecommerce.webautomation.capstone.shared.PageWaits;
@@ -30,24 +31,33 @@ public class ProductDescriptionPage {
     }
 
     public ProductDescriptionPage selectProductByName() {
-//        By productName = By.xpath("//a[contains(text(), '" + ConfigReader.getProductName() + "')]");
         WebElement productElement = findElements.ByXPath("//a[contains(text(), '" + ConfigReader.getProductName() + "')]");
         actions.scrollWindow(productElement);
         actions.clickElement(productElement);
         return new ProductDescriptionPage(driver);
     }
-    public boolean isProductDetailsPageLoaded(){
-        waits.waitForTitleToBeChanged("Alfa – ul-web-playground");
+
+    public boolean isProductDetailsPageLoaded() {
+        waits.waitForTitleToBeChanged("12 Ti Xelium Skis – ul-web-playground");
         return waits.waitUntilElementFoundByXPath("//h1[contains(text(), '" + ConfigReader.getProductName() + "')]").isDisplayed();
     }
-    public void verifyProductAvailabilityAndAddToCart(){
+
+    public void verifyProductAvailabilityAndAddToCart() {
+
         WebElement buyNowButton = findElements.ByCSS("#product-form-template--15328405717213__main > div > div > dynamic-checkout > div > shopify-buy-it-now-button > button");
-        if(!findElements.isElementEnabled(buyNowButton)){
-            System.out.println("The Product is sold out..!");
+        try {
+            if (!findElements.isElementDisplayed(buyNowButton)) {
+                System.out.println("The Product is sold out..!");
+                throw new ProductUnavailableException("Product not available!");
+            }else {
+                proceedToBuy(buyNowButton);
+            }
+        } catch (ProductUnavailableException e) {
+            System.out.println("Error : " + e.getLocalizedMessage());
         }
-        proceedToBuy(buyNowButton);
     }
-    public void proceedToBuy(WebElement element){
+
+    public void proceedToBuy(WebElement element) {
         System.out.println("Proceeding to buy");
         actions.clickElement(element);
     }

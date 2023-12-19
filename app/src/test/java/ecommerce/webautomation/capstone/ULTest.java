@@ -31,7 +31,8 @@ public class ULTest {
                 .isProductDetailsPageLoaded();
         Assert.assertTrue(productDetailsPageLoaded);
 
-        pdp.verifyProductAvailabilityAndAddToCart();
+            pdp.verifyProductAvailabilityAndAddToCart();
+
     }
 
     @AfterClass
