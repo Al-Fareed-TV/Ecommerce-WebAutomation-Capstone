@@ -1,9 +1,8 @@
 package ecommerce.webautomation.capstone.shared;
-import ecommerce.webautomation.capstone.utils.ConfigReader;
-import ecommerce.webautomation.capstone.utils.DriverCreator;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Actions {

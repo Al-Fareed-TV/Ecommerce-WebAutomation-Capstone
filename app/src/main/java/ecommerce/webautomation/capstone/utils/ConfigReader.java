@@ -4,7 +4,7 @@ package ecommerce.webautomation.capstone.utils;
 public class ConfigReader {
     private static final String baseURL = "https://web-playground.ultralesson.com/";
     private static final String browser = "chrome";
-    private static final String productName = "12 Ti Xelium Skis";
+    private static final String productName = "Alfa";
 
     public static String getBaseURL() {
         return baseURL;
