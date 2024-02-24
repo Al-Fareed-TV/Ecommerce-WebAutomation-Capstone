@@ -44,7 +44,7 @@ public class PageWaits {
         return waitForElement().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
-    public Boolean waitForTitleToBeChanged(String titleName){
-        return waitForElement().until(ExpectedConditions.titleIs(titleName));
+    public void waitForTitleToBeChanged(String titleName){
+         waitForElement().until(ExpectedConditions.titleIs(titleName));
     }
 }

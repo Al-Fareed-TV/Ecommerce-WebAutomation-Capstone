@@ -2,15 +2,19 @@ package ecommerce.webautomation.capstone;
 
 import ecommerce.webautomation.capstone.pages.CartPage;
 import ecommerce.webautomation.capstone.pages.HomePage;
+import ecommerce.webautomation.capstone.pages.LoginPage;
 import ecommerce.webautomation.capstone.pages.ProductDescriptionPage;
 import ecommerce.webautomation.capstone.shared.PageWaits;
 import ecommerce.webautomation.capstone.utils.ConfigReader;
 import ecommerce.webautomation.capstone.utils.DriverCreator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static java.lang.Thread.sleep;
 
 public class ULTest {
     WebDriver driver = null;
@@ -23,11 +27,24 @@ public class ULTest {
     }
 
     @Test
-    public void testPDP() {
+    public void testPDP() throws InterruptedException {
         HomePage homePage = HomePage.getInstance(driver);
         ProductDescriptionPage pdp = ProductDescriptionPage.getPDPInstance(driver);
+        LoginPage loginPage = LoginPage.getInstance(driver);
+
 
         homePage.goToHomePage();
+        loginPage.loginWithCookies();
+
+        this.driver.findElement(By.cssSelector("#shopify-section-header > sticky-header > header > div > a.header__icon.header__icon--account.link.focus-inset.small-hide")).click();
+
+        this.waits.waitForTitleToBeChanged("Account – ul-web-playground");
+
+        sleep(2000);
+
+        this.driver.navigate().back();
+
+
         boolean productDetailsPageLoaded =
                 pdp.selectProductByName()
                         .isProductDetailsPageLoaded();
@@ -41,9 +58,8 @@ public class ULTest {
         }
 
     }
-
     @Test
-    public void validateCartContents() {
+    public void validateCartContents() throws InterruptedException {
         testPDP();
         CartPage cartPage = CartPage.cartPageInstance(driver);
         String nameOfItemInCart = cartPage.navigateToCartPage().nameOfItemInCart();
@@ -60,7 +76,9 @@ public class ULTest {
     }
 
     @AfterClass
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        System.out.println("Terminating...");
+        sleep(3000);
         driver.close();
         driver.quit();
     }

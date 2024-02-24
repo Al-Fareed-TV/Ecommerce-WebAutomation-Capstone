@@ -20,6 +20,10 @@ dependencies {
     testImplementation 'org.testng:testng:7.5.1'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.10.0'
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.4.1'
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
+
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
