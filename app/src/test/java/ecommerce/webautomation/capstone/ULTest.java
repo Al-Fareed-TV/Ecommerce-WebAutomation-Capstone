@@ -58,9 +58,8 @@ public class ULTest {
         }
 
     }
-    @Test
+    @Test(dependsOnMethods = "testPDP")
     public void validateCartContents() throws InterruptedException {
-        testPDP();
         CartPage cartPage = CartPage.cartPageInstance(driver);
         String nameOfItemInCart = cartPage.navigateToCartPage().nameOfItemInCart();
         Assert.assertEquals(nameOfItemInCart, "Alfa","Name of the product doesn't match!");

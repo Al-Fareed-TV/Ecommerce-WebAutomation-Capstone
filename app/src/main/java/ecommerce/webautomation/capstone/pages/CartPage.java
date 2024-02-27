@@ -37,9 +37,8 @@ public class CartPage {
 
     public String nameOfItemInCart() {
         pageWaits.waitForTitleToBeChanged("Your Shopping Cart – ul-web-playground");
-        String nameOfItemInCart = pageWaits.waitUntilElementFoundByCSS("#CartItem-1 > td.cart-item__details > a").getText();
-        System.out.println("name of item in cart : " + nameOfItemInCart);
-        return nameOfItemInCart;
+        return  pageWaits.waitUntilElementFoundByCSS("#CartItem-1 > td.cart-item__details > a").getText();
+
     }
 
     public String sizeOfTheItem() {
