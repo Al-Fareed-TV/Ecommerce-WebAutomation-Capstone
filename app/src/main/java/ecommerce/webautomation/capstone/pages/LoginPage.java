@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class LoginPage {
     private static LoginPage loginPageInstance;
-    private WebDriver driver;
+    private WebDriver driver = null;
 
     private LoginPage(WebDriver driver) {
         this.driver = driver;
