@@ -2,14 +2,14 @@ package ecommerce.webautomation.capstone.pages;
 
 import ecommerce.webautomation.capstone.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
-import ecommerce.webautomation.capstone.shared.Actions;
+import ecommerce.webautomation.capstone.shared.Action;
 
 public class HomePage {
     private static HomePage homePage = null;
-    private Actions actions = null;
+    private Action action = null;
 
     private HomePage(WebDriver driver) {
-        this.actions = Actions.getActionsObject(driver);
+        this.action = Action.getActionsObject(driver);
     }
 
     public static HomePage getInstance(WebDriver driver) {
@@ -20,7 +20,7 @@ public class HomePage {
     }
 
     public void goToHomePage() {
-        actions.navigateTo(ConfigReader.getBaseURL());
-        actions.Maximize();
+        action.navigateTo(ConfigReader.getBaseURL());
+        action.Maximize();
     }
 }

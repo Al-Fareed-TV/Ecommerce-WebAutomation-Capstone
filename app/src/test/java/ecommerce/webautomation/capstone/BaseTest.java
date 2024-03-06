@@ -2,25 +2,27 @@ package ecommerce.webautomation.capstone;
 
 
 
-import ecommerce.webautomation.capstone.pages.BasePage ;
+import ecommerce.webautomation.capstone.shared.PageWaits;
+import ecommerce.webautomation.capstone.utils.ConfigReader;
+import ecommerce.webautomation.capstone.utils.DriverCreator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import ecommerce.webautomation.capstone.utils.TestLogger;
 import org.testng.annotations.Listeners;
-
 import java.lang.reflect.Method;
-import java.time.Duration;
-
 
 @Listeners(TestListener.class)
 public class BaseTest {
 
-    WebDriver driver;
+    protected WebDriver driver = null;
+    protected PageWaits waits = null;
+
     @BeforeClass
     public void setUp(){
-        driver = new BasePage().getDriver("chrome");
+        driver = DriverCreator.instantiateDriver(ConfigReader.getBrowser());
+        waits = PageWaits.getPageWaitsObject(driver);
     }
 
     @BeforeMethod
@@ -31,6 +33,7 @@ public class BaseTest {
 
     @AfterClass
     public void tearDown() {
+        driver.close();
         driver.quit();
         TestLogger.shutdown();
     }

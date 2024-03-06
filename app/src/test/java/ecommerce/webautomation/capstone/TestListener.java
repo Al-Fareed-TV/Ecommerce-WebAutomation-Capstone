@@ -1,16 +1,19 @@
 package ecommerce.webautomation.capstone;
 
+import ecommerce.webautomation.capstone.utils.ConfigReader;
+import ecommerce.webautomation.capstone.utils.DriverCreator;
 import ecommerce.webautomation.capstone.utils.TestLogger;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import ecommerce.webautomation.capstone.pages.BasePage;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 
 public class TestListener implements ITestListener {
 
@@ -24,15 +27,14 @@ public class TestListener implements ITestListener {
 
     public void onTestFailure(ITestResult result) {
         TestLogger.error("*****Test Failed :- " + result.getName() + "*****");
-        Object currentClass = result.getInstance();
-        WebDriver driver = null;// Replace with your WebDriver setup logic
-        driver = BasePage.driver;
+        WebDriver driver = DriverCreator.instantiateDriver(ConfigReader.getBrowser());
+        try {
+            captureScreenshotOnFail(driver, result.getName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if ((driver != null)) {
-            try {
-                Allure.addAttachment(result.getName() + "mobile", "image/png", captureScreenshot(driver).toString());
-            } catch (Throwable th) {
-                th.getMessage();
-            }
+            Allure.addAttachment(result.getName() + "web", "image/png", captureScreenshot(driver).toString());
 
         }
         TestLogger.info("Screenshot taken");
@@ -43,12 +45,9 @@ public class TestListener implements ITestListener {
     }
 
 
-    private byte[] captureScreenshot(WebDriver driver) {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
-        return screenshot;
-
-
+    private void captureScreenshotOnFail(WebDriver driver,String methodName) throws IOException {
+        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(srcFile, new File("app/src/test/screenshots/"+methodName+".jpg"));
     }
 
     @Attachment(value = "Failure Screenshot2", type = "png")

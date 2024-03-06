@@ -12,19 +12,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
 
-public class ULTest {
-    WebDriver driver = null;
-    PageWaits waits = null;
-
-    @BeforeClass
-    public void setup() {
-        this.driver = DriverCreator.instantiateDriver(ConfigReader.getBrowser());
-        this.waits = PageWaits.getPageWaitsObject(this.driver);
-    }
+public class ULTest extends BaseTest {
 
     @Test
     public void testPDP() throws InterruptedException {
@@ -36,7 +29,7 @@ public class ULTest {
         homePage.goToHomePage();
         loginPage.loginWithCookies();
 
-        this.driver.findElement(By.cssSelector("#shopify-section-header > sticky-header > header > div > a.header__icon.header__icon--account.link.focus-inset.small-hide")).click();
+        driver.findElement(By.cssSelector("#shopify-section-header > sticky-header > header > div > a.header__icon.header__icon--account.link.focus-inset.small-hide")).click();
 
         this.waits.waitForTitleToBeChanged("Account – ul-web-playground");
 
@@ -58,9 +51,8 @@ public class ULTest {
         }
 
     }
-    @Test
+    @Test(dependsOnMethods = "testPDP")
     public void validateCartContents() throws InterruptedException {
-        testPDP();
         CartPage cartPage = CartPage.cartPageInstance(driver);
         String nameOfItemInCart = cartPage.navigateToCartPage().nameOfItemInCart();
         Assert.assertEquals(nameOfItemInCart, "Alfa","Name of the product doesn't match!");
@@ -75,11 +67,10 @@ public class ULTest {
         Assert.assertEquals(totalAmount, "Rs. 312.55", "Price doesn't match!");
     }
 
-    @AfterClass
-    public void tearDown() throws InterruptedException {
-        System.out.println("Terminating...");
-        sleep(3000);
-        driver.close();
-        driver.quit();
+    @Test
+    public void testTakeScreenShot(){
+        Assert.fail();
     }
+
+
 }
