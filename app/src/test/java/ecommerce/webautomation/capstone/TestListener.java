@@ -33,10 +33,10 @@ public class TestListener implements ITestListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if ((driver != null)) {
-            Allure.addAttachment(result.getName() + "web", "image/png", captureScreenshot(driver).toString());
-
-        }
+//        if ((driver != null)) {
+//            Allure.addAttachment(result.getName() + "web", "image/png", captureScreenshot(driver).toString());
+//
+//        }
         TestLogger.info("Screenshot taken");
     }
 
@@ -47,7 +47,7 @@ public class TestListener implements ITestListener {
 
     private void captureScreenshotOnFail(WebDriver driver,String methodName) throws IOException {
         File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(srcFile, new File("app/src/test/screenshots/"+methodName+".jpg"));
+        FileUtils.copyFile(srcFile, new File("/Users/testvagrant/Baganna/Ecommerce-WebAutomation-Capstone/app/src/test/screenshots/"+driver.getTitle()+".jpg"));
     }
 
     @Attachment(value = "Failure Screenshot2", type = "png")

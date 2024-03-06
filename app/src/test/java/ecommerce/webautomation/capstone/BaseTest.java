@@ -13,6 +13,8 @@ import ecommerce.webautomation.capstone.utils.TestLogger;
 import org.testng.annotations.Listeners;
 import java.lang.reflect.Method;
 
+import static java.lang.Thread.sleep;
+
 @Listeners(TestListener.class)
 public class BaseTest {
 
@@ -32,7 +34,8 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
+        sleep(2000);
         driver.close();
         driver.quit();
         TestLogger.shutdown();

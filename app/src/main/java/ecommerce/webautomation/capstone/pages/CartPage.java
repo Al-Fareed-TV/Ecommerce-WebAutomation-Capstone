@@ -35,6 +35,11 @@ public class CartPage {
         return new CartPage(driver);
     }
 
+    public void navigateToCheckout(){
+        pageWaits.waitUntilElementFoundByID("checkout").click();
+
+    }
+
     public String nameOfItemInCart() {
         pageWaits.waitForTitleToBeChanged("Your Shopping Cart – ul-web-playground");
         String nameOfItemInCart = pageWaits.waitUntilElementFoundByCSS("#CartItem-1 > td.cart-item__details > a").getText();
