@@ -1,6 +1,6 @@
 package ecommerce.webautomation.capstone.pages;
 
-import ecommerce.webautomation.capstone.shared.Actions;
+import ecommerce.webautomation.capstone.shared.Action;
 import ecommerce.webautomation.capstone.shared.FindElements;
 import ecommerce.webautomation.capstone.shared.PageWaits;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class CartPage {
     private WebDriver driver = null;
-    Actions actions = null;
+    Action action = null;
     FindElements findElements = null;
     private static CartPage cartPage = null;
     private PageWaits pageWaits = null;
@@ -19,7 +19,7 @@ public class CartPage {
     private CartPage(WebDriver driver) {
         this.driver = driver;
         this.pageWaits = PageWaits.getPageWaitsObject(driver);
-        this.actions = Actions.getActionsObject(driver);
+        this.action = Action.getActionsObject(driver);
         this.findElements = FindElements.getInstance(driver);
     }
 
@@ -33,6 +33,11 @@ public class CartPage {
     public CartPage navigateToCartPage() {
         pageWaits.waitUntilElementFoundByCSS("#cart-icon-bubble").click();
         return new CartPage(driver);
+    }
+
+    public void navigateToCheckout(){
+        pageWaits.waitUntilElementFoundByID("checkout").click();
+
     }
 
     public String nameOfItemInCart() {

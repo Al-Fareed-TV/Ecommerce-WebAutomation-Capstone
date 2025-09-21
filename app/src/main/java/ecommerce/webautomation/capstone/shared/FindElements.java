@@ -13,10 +13,10 @@ public class FindElements {
     }
 
     public static FindElements getInstance(WebDriver driver) {
-        if (FindElements.elements == null) {
-            FindElements.elements = new FindElements(driver);
+        if (elements == null) {
+            elements = new FindElements(driver);
         }
-        return FindElements.elements;
+        return elements;
     }
 
     public WebElement ByCSS(String cssLocator) {

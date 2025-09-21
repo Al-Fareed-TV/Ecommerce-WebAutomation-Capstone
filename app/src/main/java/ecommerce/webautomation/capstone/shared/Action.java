@@ -1,23 +1,23 @@
 package ecommerce.webautomation.capstone.shared;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
-public class Actions {
-    private static Actions actions = null;
+public class Action {
+    private static Action action = null;
     private WebDriver driver = null;
 
-    private Actions(WebDriver driver) {
+    private Action(WebDriver driver) {
         this.driver = driver;
     }
 
-    public static Actions getActionsObject(WebDriver driver) {
-        if (Actions.actions == null) {
-            Actions.actions  = new Actions(driver);
+    public static Action getActionsObject(WebDriver driver) {
+        if (Action.action == null) {
+            Action.action = new Action(driver);
         }
-        return Actions.actions;
+        return Action.action;
     }
 
     public void clickElement(WebElement element) {
@@ -41,8 +41,8 @@ public class Actions {
     }
 
     public void scrollWindow(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView()", element);
+        Actions actions1 = new Actions(driver);
+        actions1.scrollToElement(element);
     }
 
 }

@@ -1,7 +1,7 @@
 package ecommerce.webautomation.capstone.pages;
 
 import ecommerce.webautomation.capstone.Exceptions.ProductUnavailableException;
-import ecommerce.webautomation.capstone.shared.Actions;
+import ecommerce.webautomation.capstone.shared.Action;
 import ecommerce.webautomation.capstone.shared.FindElements;
 import ecommerce.webautomation.capstone.shared.PageWaits;
 import ecommerce.webautomation.capstone.utils.ConfigReader;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class ProductDescriptionPage {
     private WebDriver driver = null;
-    Actions actions = null;
+    Action action = null;
     FindElements findElements = null;
     private static ProductDescriptionPage pdp = null;
     private PageWaits pageWaits = null;
@@ -25,7 +25,7 @@ public class ProductDescriptionPage {
     private ProductDescriptionPage(WebDriver driver) {
         this.driver = driver;
         this.pageWaits = PageWaits.getPageWaitsObject(driver);
-        this.actions = Actions.getActionsObject(driver);
+        this.action = Action.getActionsObject(driver);
         this.findElements = FindElements.getInstance(driver);
     }
 
@@ -38,8 +38,8 @@ public class ProductDescriptionPage {
 
     public ProductDescriptionPage selectProductByName() {
         WebElement productElement = findElements.ByXPath("//a[contains(text(), '" + ConfigReader.getProductName() + "')]");
-        actions.scrollWindow(productElement);
-        actions.clickElement(productElement);
+        action.scrollWindow(productElement);
+        action.clickElement(productElement);
         return new ProductDescriptionPage(driver);
     }
 
@@ -66,7 +66,7 @@ public class ProductDescriptionPage {
 
     public void addItemToCart(WebElement element) {
         // add item to cart by clicking on Add Item to Cart button
-        actions.clickElement(element);
+        action.clickElement(element);
     }
 
     public boolean isItemAddedMessageDisplayed() {
